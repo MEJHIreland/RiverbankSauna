@@ -80,7 +80,7 @@ The provider accepts no responsibility for any loss or injury arising from its u
             const diffMinutes = Math.floor((now - lastDate) / 60000);
 
             document.getElementById('lastUpdated').innerText =
-            `Depth: ${depth} cm. Last updated at ${timeStr} on ${dateStr} which was (${diffMinutes} min ago).`;
+            `Temperature: ${depth} °C. Last updated at ${timeStr} on ${dateStr} which was (${diffMinutes} min ago).`;
         }
         
         // Filter for last 4 days
@@ -147,7 +147,7 @@ The provider accepts no responsibility for any loss or injury arising from its u
               },
               ticks: {
                 stepSize: 5,
-                callback: value => value + ' cm'
+                callback: value => value + ' °C'
               }
             }
           },
@@ -164,29 +164,21 @@ The provider accepts no responsibility for any loss or injury arising from its u
             },
             annotation: {
               annotations: {
-                thresholdLine1: {
-                  type: 'line',
-                  yMin: 10,
-                  yMax: 10,
-                  borderColor: 'green',
-                  borderWidth: 2,
-                  label: { display: true, content: 'Low', position: 'start', backgroundColor: 'transparent', color: 'black'}
-                },
                 thresholdLine2: {
                   type: 'line',
-                  yMin: 17,
-                  yMax: 17,
+                  yMin: 80,
+                  yMax: 80,
                   borderColor: 'orange',
                   borderWidth: 2,
-                  label: { display: true, content: 'Medium', position: 'start', backgroundColor: 'transparent', color: 'black' }
+                  label: { display: true, content: '80°C', position: 'start', backgroundColor: 'transparent', color: 'black' }
                 },
                 thresholdLine3: {
                   type: 'line',
-                  yMin: 23,
-                  yMax: 23,
+                  yMin: 100,
+                  yMax: 100,
                   borderColor: 'red',
                   borderWidth: 2,
-                  label: { display: true, content: 'High', position: 'start', backgroundColor: 'transparent', color: 'black' }
+                  label: { display: true, content: '100°C', position: 'start', backgroundColor: 'transparent', color: 'black' }
                 }
               }
             },
