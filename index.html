@@ -89,8 +89,10 @@ The provider accepts no responsibility for any loss or injury arising from its u
             const now = new Date();
             const diffMinutes = Math.floor((now - lastDate) / 60000);
 
-            document.getElementById('lastUpdated').innerText =
-            `Temperature: ${depth} °C. Last updated at ${timeStr} on ${dateStr} which was (${diffMinutes} min ago).`;
+            document.getElementById('lastUpdated').innerHTML =
+            `<span style="font-size:15px; font-weight:bold;">
+            Temperature: ${depth} °C. Last updated at ${timeStr} on ${dateStr} (${diffMinutes} min ago).
+            </span>`;
         }
         
         // Filter for last 4 days
