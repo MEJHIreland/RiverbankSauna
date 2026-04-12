@@ -109,7 +109,7 @@ async function fetchData() {
 
     const values = filtered
       .filter(entry => entry.date >= cutoffDate)
-      .filter((_, i) => i % 2 === 0) // Downsampling
+      
       .map(entry => ({ x: entry.date, y: entry.value }));
 
     updateChart(values);
