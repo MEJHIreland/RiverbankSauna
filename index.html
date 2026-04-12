@@ -124,6 +124,9 @@ The provider accepts no responsibility for any loss or injury arising from its u
             fill: false,
             tension: 0.2,
             parsing: false
+            // Highlight latest point
+        pointRadius: ctx =>
+          ctx.dataIndex === ctx.dataset.data.length - 1 ? 5 : 0
           }]
         },
         options: {
