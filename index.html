@@ -20,41 +20,27 @@
 <div style="text-align:center; margin-top: 10px;">
   <img 
     src="https://cdn.prod.website-files.com/67a69bcd8ea1d3e93de21362/67a6f173e5784778a1161401_palmerstown-mills-logo-horizontal.svg" 
-    alt="Palmerstown Mills Logo"
+    alt="Logo"
     style="max-width: 300px; height: auto;"
   >
 </div>
-
-<h2 style="text-align:center;"></h2>
 
 <div style="width: 90%; height: 400px; margin: auto;">
   <canvas id="myChart"></canvas>
 </div>
 
 <div style="width: 90%; margin: auto; text-align: center; margin-top: 10px;">
-  
-<p id="lastUpdated" style="margin-top:5px;"></p>
+  <p id="lastUpdated" style="margin-top:5px;"></p>
 
-<p style="font-size: 9px;"><i>
-Data shown is for informational purposes only and may not be accurate or up to date. 
-Always assess conditions before working in or around water.
-</i></p>
-
-<p style="font-size: 9px;"><i>
-This webpage is not affiliated with any third parties, including national bodies or government departments.
-</i></p>
-
-<p style="font-size: 9px;"><i>
-Data is provided in good faith but should not be relied upon as the sole source of information. 
-The provider accepts no responsibility for any loss or injury arising from its use.
-</i></p>
-
+  <p style="font-size: 9px;"><i>
+    Data shown is for informational purposes only and may not be accurate.
+  </i></p>
 </div>
 
 <script>
 const channelID = 3023871;
 const fieldNumber = 1;
-const resultsCount = 2000;
+const resultsCount = 500;
 const refreshInterval = 300000;
 const readAPIKey = "MOBXUAXGXG554IBK";
 
@@ -87,21 +73,22 @@ async function fetchData() {
       const now = new Date();
       const diffMinutes = Math.floor((now - lastDate) / 60000);
 
-      // Dynamic colour
-      let color = "blue";
-      if (temp >= 70) color = "green";
-      if (temp >= 90) color = "red";
-
-      document.getElementById('lastUpdated').innerHTML =
-  `<span style="font-size:15px; font-weight:bold;">
-   Temperature: ${depth} °C<br>
-   Last updated at ${timeStr} on ${dateStr} (${diffMinutes} mins ago)
-   </span>`;
+      const el = document.getElementById('lastUpdated');
+      if (el) {
+        el.innerHTML = `
+          <span style="font-size:15px; font-weight:bold;">
+          Temperature: ${temp} °C<br>
+          Updated ${diffMinutes} mins ago<br>
+          ${dateStr} at ${timeStr}
+          </span>
+        `;
+      }
     }
 
     // Last 4 days
-    const cutoff = new Date();
-    cutoff.setDate(cutoff.getDate() - 4);
+    const now = new Date();
+    const cutoff = new Date(now);
+    cutoff.setDate(now.getDate() - 4);
 
     const values = filtered
       .filter(entry => entry.date >= cutoff)
@@ -123,7 +110,7 @@ function createChart(values) {
     type: 'line',
     data: {
       datasets: [
-        // Glow layer
+        // Glow dot
         {
           data: values.length ? [values[values.length - 1]] : [],
           pointRadius: 12,
@@ -137,7 +124,6 @@ function createChart(values) {
           data: values,
           borderColor: 'blue',
           borderWidth: 2,
-          fill: false,
           tension: 0.3,
           parsing: false,
 
@@ -166,15 +152,9 @@ function createChart(values) {
             unit: 'day',
             displayFormats: { day: 'MMM dd' }
           },
-          min: new Date(new Date().setDate(new Date().getDate() - 4)),
-          max: new Date(new Date().setDate(new Date().getDate() + 1)),
           title: {
             display: true,
-            text: 'Date',
-            font: { size: 14, weight: 'bold' }
-          },
-          ticks: {
-            maxTicksLimit: 6
+            text: 'Date'
           }
         },
         y: {
@@ -182,8 +162,7 @@ function createChart(values) {
           max: 120,
           title: {
             display: true,
-            text: 'Temperature (°C)',
-            font: { size: 14, weight: 'bold' }
+            text: 'Temperature (°C)'
           },
           ticks: {
             stepSize: 10,
@@ -214,7 +193,6 @@ function createChart(values) {
           }
         },
         tooltip: {
-          enabled: true,
           displayColors: false,
           callbacks: {
             title: () => '',
@@ -237,8 +215,9 @@ function updateChart(values) {
   if (!chart) {
     createChart(values);
   } else {
-    chart.data.datasets[0].data = values;
-    chart.data.datasets[1].data = values.length ? [values[values.length - 1]] : [];
+    // Correct dataset order
+    chart.data.datasets[1].data = values;
+    chart.data.datasets[0].data = values.length ? [values[values.length - 1]] : [];
     chart.update();
   }
 }
