@@ -93,12 +93,10 @@ async function fetchData() {
       if (temp >= 90) color = "red";
 
       document.getElementById('lastUpdated').innerHTML =
-        `<div style="font-size:22px; font-weight:bold; color:${color};">
-           ${temp} °C
-         </div>
-         <div style="font-size:13px; margin-top:4px;">
-           Last updated at ${timeStr} on ${dateStr} (${diffMinutes} mins ago)
-         </div>`;
+  `<span style="font-size:15px; font-weight:bold;">
+   Temperature: ${temperature} °C<br>
+   Last updated at ${timeStr} on ${dateStr} (${diffMinutes} mins ago)
+   </span>`;
     }
 
     // Last 4 days
