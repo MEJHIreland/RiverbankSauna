@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>River Liffey Temperature</title>
+  <title>RiverBank Big Sauna Temperature</title>
 
   <!-- Mobile responsiveness -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,13 +20,13 @@
   
 <div style="text-align:center; margin-top: 10px;">
   <img 
-    src="https://www.canoecentre.ie/cdn/shop/files/canoe-centre-logo-paddle-spiral.png?v=1770888211&width=300" 
-    alt="Canoe Centre Logo"
+    src="https://cdn.prod.website-files.com/67a69bcd8ea1d3e93de21362/67a6f173e5784778a1161401_palmerstown-mills-logo-horizontal.svg" 
+    alt="Riverbank Sauna Logo"
     style="max-width: 300px; height: auto;"
   >
 </div>
   
-<h2 style="text-align:center;">River Liffey Temperature</h2>
+<h2 style="text-align:center;">Big Sauna Temperature</h2>
 
 <div style="width: 90%; height: 400px; margin: auto;">
   <canvas id="myChart"></canvas>
@@ -172,15 +172,15 @@ function createChart(values) {
           }
         },
         y: {
-          min: -5,
-          max: 30,
+          min: 0,
+          max: 120,
           title: {
             display: true,
             text: 'Temperature (°C)',
             font: { size: 14, weight: 'bold' }
           },
           ticks: {
-            stepSize: 5,
+            stepSize: 10,
             callback: value => value + ' °C'
           }
         }
@@ -193,27 +193,27 @@ function createChart(values) {
           annotations: {
             thresholdLine1: {
               type: 'line',
-              yMin: 10,
-              yMax: 10,
+              yMin: 70,
+              yMax: 70,
               borderColor: '#89CFF0',
               borderWidth: 2,
-              label: { display: true, content: 'Drysuit', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
+              label: { display: true, content: 'Minimum', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
             },
             thresholdLine2: {
               type: 'line',
-              yMin: 15,
-              yMax: 15,
+              yMin: 80,
+              yMax: 80,
               borderColor: 'orange',
               borderWidth: 2,
-              label: { display: true, content: 'Shortie Cag', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
+              label: { display: true, content: 'Optimum', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
             },
             thresholdLine3: {
               type: 'line',
-              yMin: 20,
-              yMax: 20,
+              yMin: 90,
+              yMax: 90,
               borderColor: 'red',
               borderWidth: 2,
-              label: { display: true, content: 'Rash Vest', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
+              label: { display: true, content: 'Maximum', position: 'start', backgroundColor: 'rgba(255,255,255,0.7)', color: 'black' }
             }
           }
         },
